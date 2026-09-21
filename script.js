@@ -1,4 +1,4 @@
-const GITHUB_URL = "https://github.com/akshay-admane/Professional-Javascript;
+const GITHUB_URL = "https://github.com/akshay-admane/Professional-Javascript";
 
 const typingElement = document.getElementById("typing");
 const statusElement = document.getElementById("status");
