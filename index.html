@@ -1,58 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
   <meta
     name="description"
     content="JavaScript Learning — From Beginner to Professional by Akshay Admane."
-  />
+  >
 
-  <meta
-    name="theme-color"
-    content="#050505"
-  />
+  <meta name="theme-color" content="#050505">
 
   <title>JavaScript — From Beginner to Professional</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <main class="intro">
+  <main class="landing">
 
-    <!-- Animated background grid -->
-    <div class="grid"></div>
+    <div class="background-grid"></div>
 
     <section class="content">
 
-      <!-- Terminal animation -->
-      <div class="terminal-line">
-        <span class="prompt">$</span>
+      <!-- Terminal -->
+      <div class="terminal">
+        <span class="terminal-symbol">$</span>
         <span id="typing"></span>
         <span class="cursor">_</span>
       </div>
 
-
-      <!-- Course branding -->
+      <!-- Main branding -->
       <div class="brand">
 
-        <p class="eyebrow">
-          A structured learning journey
-        </p>
+        <div class="eyebrow">
+          A Structured Learning Journey
+        </div>
 
         <h1>
           JAVASCRIPT
         </h1>
 
         <h2>
-          FROM BEGINNER<br />
+          FROM BEGINNER<br>
           TO PROFESSIONAL
         </h2>
 
@@ -62,50 +57,44 @@
 
       </div>
 
+      <!-- Short loading animation -->
+      <div class="progress-container">
 
-      <!-- Loading / status -->
-      <div class="loading">
-
-        <div class="loading-bar">
+        <div class="progress-bar">
           <span></span>
         </div>
 
         <p id="status">
-          Initializing your course...
+          Preparing your learning journey...
         </p>
 
       </div>
 
-
-      <!-- User must click this -->
+      <!-- Manual navigation -->
       <a
-        class="open-course"
-        href="https://github.com/akshay-admane/Professional-Javascript"
         id="courseLink"
+        class="course-button"
+        href="https://github.com/akshay-admane/Professional-Javascript"
       >
-        Open Course →
+        START LEARNING
+        <span>→</span>
       </a>
 
     </section>
 
 
-    <!-- Bottom branding -->
+    <!-- Bottom message -->
     <footer>
 
       <span>LEARN</span>
-
       <span>BUILD</span>
-
       <span>DEBUG</span>
-
       <span>THINK LIKE AN ENGINEER</span>
 
     </footer>
 
   </main>
 
-
-  <!-- JavaScript -->
   <script src="script.js"></script>
 
 </body>
