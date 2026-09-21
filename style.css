@@ -3,11 +3,11 @@
 }
 
 :root {
-  --background: #050505;
+  --bg: #050505;
   --text: #f5f5f5;
-  --muted: #8a8a8a;
+  --muted: #9b9b9b;
   --accent: #f7df1e;
-  --grid: rgba(255, 255, 255, 0.045);
+  --line: rgba(255, 255, 255, 0.08);
 }
 
 html,
@@ -16,7 +16,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  background: var(--background);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -35,81 +35,95 @@ body {
 }
 
 
-/* =========================================
-   MAIN CONTAINER
-========================================= */
+/* ================================
+   MAIN
+================================ */
 
-.landing {
+.intro {
   position: relative;
 
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 
   overflow: hidden;
+
+  isolation: isolate;
 }
 
 
-/* =========================================
-   LIGHTWEIGHT BACKGROUND
-========================================= */
+/* ================================
+   BACKGROUND GRID
+================================ */
 
-.background-grid {
+.grid {
   position: absolute;
-  inset: 0;
+
+  inset: -10%;
+
+  z-index: -2;
+
+  opacity: 0.35;
 
   background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    linear-gradient(
+      var(--line) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--line) 1px,
+      transparent 1px
+    );
 
-  background-size: 45px 45px;
+  background-size: 55px 55px;
 
-  opacity: 0.7;
+  transform:
+    perspective(500px)
+    rotateX(55deg)
+    scale(1.5);
+
+  transform-origin: center bottom;
 
   pointer-events: none;
 }
 
 
-/* Small ambient glow */
+/* ================================
+   AMBIENT LIGHT
+================================ */
 
-.landing::after {
+.intro::before {
   content: "";
 
   position: absolute;
 
-  width: 280px;
-  height: 280px;
+  width: 380px;
+  height: 380px;
 
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
+  border-radius: 50%;
 
   background: var(--accent);
 
-  opacity: 0.035;
+  filter: blur(120px);
 
-  filter: blur(80px);
+  opacity: 0.07;
 
-  border-radius: 50%;
+  z-index: -1;
 
   pointer-events: none;
 }
 
 
-/* =========================================
+/* ================================
    CONTENT
-========================================= */
+================================ */
 
 .content {
-  position: relative;
-  z-index: 2;
-
-  width: min(850px, 90%);
+  width: min(850px, 88vw);
 
   text-align: center;
 
@@ -117,51 +131,60 @@ body {
 }
 
 
-/* =========================================
+/* ================================
    TERMINAL
-========================================= */
+================================ */
 
-.terminal {
-  margin-bottom: 42px;
+.terminal-line {
+  width: fit-content;
 
-  color: #999;
+  margin: 0 auto 45px;
+
+  color: #bdbdbd;
 
   font-family:
     "SFMono-Regular",
     Consolas,
-    "Liberation Mono",
     monospace;
 
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 15px);
 
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 
-  animation: fadeIn 0.6s ease forwards;
+  animation:
+    fadeIn 0.5s ease both;
 }
 
-.terminal-symbol {
+.prompt {
   color: var(--accent);
 
-  margin-right: 7px;
+  margin-right: 8px;
 }
 
 .cursor {
   color: var(--accent);
 
-  animation: blink 0.8s steps(1) infinite;
+  animation:
+    blink 700ms steps(1) infinite;
 }
 
 
-/* =========================================
+/* ================================
    BRAND
-========================================= */
+================================ */
 
 .brand {
-  animation: reveal 0.8s ease forwards;
+  opacity: 0;
+
+  animation:
+    brandReveal 700ms
+    cubic-bezier(.16, 1, .3, 1)
+    0.15s
+    forwards;
 }
 
 .eyebrow {
-  margin-bottom: 14px;
+  margin: 0 0 14px;
 
   color: var(--accent);
 
@@ -169,43 +192,42 @@ body {
 
   font-weight: 700;
 
-  letter-spacing: 0.22em;
+  letter-spacing: 0.25em;
 
   text-transform: uppercase;
 }
 
-
-/* Main title */
-
 h1 {
   margin: 0;
 
-  font-size: clamp(60px, 14vw, 150px);
+  font-size: clamp(
+    64px,
+    15vw,
+    150px
+  );
 
   line-height: 0.82;
 
   font-weight: 900;
 
-  letter-spacing: -0.07em;
+  letter-spacing: -0.075em;
 }
 
-
-/* Subtitle */
-
 h2 {
-  margin: 27px 0 18px;
+  margin: 28px 0 20px;
 
-  font-size: clamp(20px, 4vw, 42px);
+  font-size: clamp(
+    20px,
+    4vw,
+    42px
+  );
 
   line-height: 1.05;
 
   font-weight: 300;
 
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
 }
-
-
-/* Author */
 
 .author {
   margin: 0;
@@ -214,7 +236,7 @@ h2 {
 
   font-size: 14px;
 
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
 
   text-transform: uppercase;
 }
@@ -226,79 +248,92 @@ h2 {
 }
 
 
-/* =========================================
-   PROGRESS
-========================================= */
+/* ================================
+   LOADING
+================================ */
 
-.progress-container {
-  width: min(340px, 75vw);
+.loading {
+  width: min(360px, 75vw);
 
-  margin: 48px auto 0;
+  margin: 45px auto 0;
 
-  animation: fadeIn 0.7s ease 0.4s both;
+  opacity: 0;
+
+  animation:
+    fadeIn 0.5s ease
+    0.55s
+    forwards;
 }
 
-.progress-bar {
-  width: 100%;
+.loading-bar {
   height: 2px;
 
-  background: rgba(255, 255, 255, 0.12);
+  width: 100%;
+
+  background:
+    rgba(255, 255, 255, 0.12);
 
   overflow: hidden;
 }
 
-.progress-bar span {
+.loading-bar span {
   display: block;
 
-  width: 0;
   height: 100%;
+
+  width: 0;
 
   background: var(--accent);
 
-  animation: progress 1.4s ease forwards;
+  animation:
+    loading 1.1s
+    cubic-bezier(.65, 0, .35, 1)
+    forwards;
+
+  box-shadow:
+    0 0 12px
+    rgba(247, 223, 30, 0.5);
 }
 
-.progress-container p {
+.loading p {
   margin: 11px 0 0;
 
-  color: #707070;
+  color: #777;
 
   font-family:
     "SFMono-Regular",
     Consolas,
     monospace;
 
-  font-size: 10px;
+  font-size: 11px;
 
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 
-/* =========================================
-   BUTTON
-========================================= */
+/* ================================
+   OPEN COURSE BUTTON
+================================ */
 
-.course-button {
+.open-course {
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
+  margin-top: 25px;
 
-  margin-top: 28px;
+  padding: 12px 20px;
 
-  padding: 14px 24px;
+  min-height: 44px;
 
-  min-height: 48px;
-
-  border: 1px solid rgba(247, 223, 30, 0.5);
+  border:
+    1px solid
+    rgba(247, 223, 30, 0.45);
 
   border-radius: 999px;
 
   color: var(--accent);
-
-  background: rgba(247, 223, 30, 0.025);
 
   text-decoration: none;
 
@@ -306,13 +341,17 @@ h2 {
 
   font-weight: 700;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
 
   text-transform: uppercase;
 
   opacity: 0;
 
-  animation: buttonAppear 0.6s ease 1.2s forwards;
+  animation:
+    buttonReveal 0.5s
+    ease
+    1.1s
+    forwards;
 
   transition:
     background 0.2s ease,
@@ -321,14 +360,8 @@ h2 {
     box-shadow 0.2s ease;
 }
 
-.course-button span {
-  font-size: 18px;
-
-  line-height: 0;
-}
-
-.course-button:hover,
-.course-button:focus-visible {
+.open-course:hover,
+.open-course:focus-visible {
   background: var(--accent);
 
   color: #050505;
@@ -336,46 +369,39 @@ h2 {
   transform: translateY(-2px);
 
   box-shadow:
-    0 8px 30px rgba(247, 223, 30, 0.15);
+    0 0 30px
+    rgba(247, 223, 30, 0.2);
 
   outline: none;
 }
 
-.course-button:active {
+.open-course:active {
   transform: translateY(0);
 }
 
 
-/* =========================================
+/* ================================
    FOOTER
-========================================= */
+================================ */
 
 footer {
   position: absolute;
 
-  bottom: 24px;
+  bottom: 28px;
 
   left: 50%;
 
   transform: translateX(-50%);
 
-  z-index: 2;
-
   display: flex;
 
-  align-items: center;
+  gap: 18px;
 
-  justify-content: center;
-
-  gap: 14px;
-
-  width: 95%;
-
-  color: #4e4e4e;
+  color: #555;
 
   font-size: 8px;
 
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
 
   white-space: nowrap;
 }
@@ -383,17 +409,18 @@ footer {
 footer span:not(:last-child)::after {
   content: "•";
 
-  margin-left: 14px;
+  margin-left: 18px;
 
-  color: #303030;
+  color: #333;
 }
 
 
-/* =========================================
+/* ================================
    ANIMATIONS
-========================================= */
+================================ */
 
 @keyframes fadeIn {
+
   from {
     opacity: 0;
   }
@@ -401,21 +428,31 @@ footer span:not(:last-child)::after {
   to {
     opacity: 1;
   }
+
 }
 
-@keyframes reveal {
+@keyframes brandReveal {
+
   from {
     opacity: 0;
-    transform: translateY(15px);
+
+    transform:
+      translateY(20px)
+      scale(0.985);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0)
+      scale(1);
   }
+
 }
 
-@keyframes progress {
+@keyframes loading {
+
   from {
     width: 0;
   }
@@ -423,30 +460,39 @@ footer span:not(:last-child)::after {
   to {
     width: 100%;
   }
+
 }
 
-@keyframes buttonAppear {
+@keyframes buttonReveal {
+
   from {
     opacity: 0;
-    transform: translateY(8px);
+
+    transform:
+      translateY(8px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
+
 }
 
 @keyframes blink {
+
   50% {
     opacity: 0;
   }
+
 }
 
 
-/* =========================================
+/* ================================
    MOBILE
-========================================= */
+================================ */
 
 @media (max-width: 600px) {
 
@@ -456,10 +502,10 @@ footer span:not(:last-child)::after {
     padding:
       25px
       0
-      55px;
+      50px;
   }
 
-  .terminal {
+  .terminal-line {
     margin-bottom: 34px;
 
     font-size: 11px;
@@ -472,15 +518,23 @@ footer span:not(:last-child)::after {
   }
 
   h1 {
-    font-size: clamp(52px, 17vw, 90px);
-
-    letter-spacing: -0.075em;
+    font-size:
+      clamp(
+        54px,
+        17vw,
+        90px
+      );
   }
 
   h2 {
-    margin-top: 20px;
+    margin-top: 21px;
 
-    font-size: clamp(18px, 5.7vw, 30px);
+    font-size:
+      clamp(
+        18px,
+        5.5vw,
+        30px
+      );
 
     letter-spacing: 0.05em;
   }
@@ -491,24 +545,28 @@ footer span:not(:last-child)::after {
     letter-spacing: 0.13em;
   }
 
-  .progress-container {
-    margin-top: 40px;
-
+  .loading {
     width: min(300px, 75vw);
+
+    margin-top: 38px;
   }
 
-  .course-button {
-    margin-top: 25px;
+  .open-course {
+    margin-top: 23px;
 
-    padding: 14px 22px;
+    min-height: 48px;
 
-    font-size: 11px;
+    padding:
+      13px
+      22px;
   }
 
   footer {
     bottom: 16px;
 
-    gap: 7px;
+    gap: 8px;
+
+    width: 95%;
 
     font-size: 6px;
 
@@ -516,48 +574,55 @@ footer span:not(:last-child)::after {
   }
 
   footer span:not(:last-child)::after {
-    margin-left: 7px;
+    margin-left: 8px;
   }
+
 }
 
 
-/* =========================================
-   VERY SMALL PHONES
-========================================= */
+/* ================================
+   SMALL HEIGHT DEVICES
+================================ */
 
 @media (max-height: 650px) {
 
-  .terminal {
+  .terminal-line {
     margin-bottom: 25px;
   }
 
-  .progress-container {
+  .loading {
     margin-top: 28px;
   }
 
-  .course-button {
+  .open-course {
     margin-top: 18px;
   }
 
   footer {
     display: none;
   }
+
 }
 
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+/* ================================
+   ACCESSIBILITY
+================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
 
-    animation-iteration-count: 1 !important;
+    animation-duration:
+      0.01ms !important;
 
-    transition-duration: 0.01ms !important;
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
   }
+
 }
