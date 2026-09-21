@@ -33,32 +33,36 @@ let characterIndex = 0;
 
 
 /*
- * Terminal typing animation
+ * Lightweight typing animation
  */
 function typeMessage() {
 
-  const currentMessage =
+  const message =
     messages[messageIndex];
 
 
   if (
     characterIndex <
-    currentMessage.length
+    message.length
   ) {
 
     typingElement.textContent +=
-      currentMessage[characterIndex];
+      message[characterIndex];
 
     characterIndex++;
 
-    setTimeout(typeMessage, 35);
+    setTimeout(
+      typeMessage,
+      30
+    );
 
     return;
   }
 
 
   /*
-   * Pause after completing message
+   * Pause briefly,
+   * then move to next message.
    */
   setTimeout(() => {
 
@@ -72,7 +76,7 @@ function typeMessage() {
 
     typeMessage();
 
-  }, 700);
+  }, 600);
 }
 
 
@@ -80,14 +84,15 @@ typeMessage();
 
 
 /*
- * Update status message
+ * Update status after
+ * the short intro animation.
  */
 setTimeout(() => {
 
   statusElement.textContent =
     "Your learning journey starts here.";
 
-}, 1500);
+}, 1300);
 
 
 /*
@@ -99,13 +104,8 @@ setTimeout(() => {
  *
  * window.location.href = ...
  *
- * setTimeout(() => redirect...)
+ * redirect timer
  *
- * The user must click the button.
+ * The user must click
+ * "Open Course".
  */
-courseLink.addEventListener("click", () => {
-
-  courseLink.textContent =
-    "OPENING COURSE...";
-
-});
